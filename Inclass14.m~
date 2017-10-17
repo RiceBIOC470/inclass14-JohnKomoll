@@ -26,7 +26,7 @@ imshow(mask)
 CC = bwconncomp(mask);
 cell_data = regionprops(CC, 'Area');
 area = [cell_data.Area];
-fused_cells = area > mean(area) + 0.1*std(area);  % Many clusters exist, so take many larger chunks
+fused_cells = area > mean(area) + std(area);
 sublist = CC.PixelIdxList(fused_cells);
 sublist = cat(1, sublist{:});
 fusedMask = false(size(mask));
@@ -65,6 +65,5 @@ imshow(L > 1, 'InitialMagnification', 'fit')
 
 % When comparing Figure 5 (Part A) and Figure 7 (Part B), it is clear that
 % Part A, using the erosion mask, was much more successful. Part B
-% oversegments the nuclei, while Part A only leaves a few clusters of cells
-% undivided.
+% oversegmen
 
